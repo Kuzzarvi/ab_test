@@ -2,6 +2,7 @@
   "name": "ab_test",
   "version": "0.1.0",
   "private": false,
+  "homepage": "https://kuzzarvi.github.io/ab_test/",
   "dependencies": {
     "@mdi/js": "^6.2.95",
     "@mdi/react": "^1.5.0",
@@ -14,6 +15,7 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.18",
     "axios": "^0.22.0",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.5",
@@ -27,7 +29,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy":"gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [
