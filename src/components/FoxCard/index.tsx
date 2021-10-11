@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { FoxCardType } from "../../types/cards";
 import { useActions } from "../../hooks/useActions";
 
@@ -7,23 +7,23 @@ import "./FoxCard.css";
 import Icon from "@mdi/react";
 import { mdiCardsHeart, mdiDelete } from "@mdi/js";
 
-const FoxCard: FC<FoxCardType> = ({ card, liked }) => {
+const FoxCard: FC<FoxCardType> = ({ imageUrl, isLiked, showOnlyLiked, id }) => {
   const { likeCard, delCard } = useActions();
 
   return (
-    <div className={liked && !card.liked ? "noDisplay" : "foxCard"}>
-      <img src={card.image} alt="IseeWinner"></img>
+    <div className={showOnlyLiked && !isLiked ? "noDisplay" : "foxCard"}>
+      <img src={imageUrl} alt="IseeWinner"></img>
       <div className="description">
-        <span className="foxCardText">id:{card.id}</span>
-        <div onClick={() => likeCard(card.id)}>
+        <span className="foxCardText">id:{id}</span>
+        <div onClick={() => likeCard(id)}>
           <Icon
             className="icon"
             path={mdiCardsHeart}
             size={1}
-            color={card.liked ? "red" : "gray"}
+            color={isLiked ? "red" : "gray"}
           />
         </div>
-        <div onClick={() => delCard(card.id)}>
+        <div onClick={() => delCard(id)}>
           <Icon className="icon" path={mdiDelete} size={1} color="black" />
         </div>
       </div>
@@ -31,4 +31,13 @@ const FoxCard: FC<FoxCardType> = ({ card, liked }) => {
   );
 };
 
-export default FoxCard;
+function areEqual(
+  { isLiked: prevIsLiked, showOnlyLiked: prevShowOnlyLiked }: FoxCardType,
+  { isLiked: nextIsLiked, showOnlyLiked: nextShowOnlyLiked }: FoxCardType
+) {
+  return prevShowOnlyLiked === nextShowOnlyLiked
+    ? prevIsLiked === nextIsLiked
+    : nextIsLiked;
+}
+
+export default memo(FoxCard, areEqual);

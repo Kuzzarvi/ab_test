@@ -7,7 +7,7 @@ import "./CardList.css";
 import FoxCard from "../FoxCard";
 
 const CardList: FC = () => {
-  const { cards, liked, error, loading } = useTypedSelector(
+  const { cards, showOnlyLiked, error, loading } = useTypedSelector(
     (state) => state.card
   );
   const { fetchCards, showLikedCards } = useActions();
@@ -16,12 +16,12 @@ const CardList: FC = () => {
     fetchCards();
   }, []);
 
-  const noneCardsToDisplay: boolean = useMemo(() => {
-    return (
-      !!cards.length &&
-      (liked ? !!cards.filter((el) => el.liked === liked).length : true)
-    );
-  }, [cards, liked]);
+  // const noneCardsToDisplay: boolean = useMemo(() => {
+  //   return (
+  //     !!cards.length &&
+  //     (showOnlyLiked ? !!cards.filter((el) => el.isLiked === showOnlyLiked).length : true)
+  //   );
+  // }, [cards, showOnlyLiked]);
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -36,8 +36,8 @@ const CardList: FC = () => {
         <label className="switch">
           <input
             type="checkbox"
-            checked={liked}
-            onChange={() => showLikedCards(!liked)}
+            checked={showOnlyLiked}
+            onChange={() => showLikedCards(!showOnlyLiked)}
           ></input>
           <span className="slider"></span>
         </label>
@@ -45,9 +45,15 @@ const CardList: FC = () => {
       </div>
 
       <div className="foxTable">
-        {noneCardsToDisplay ? (
+        {cards.length ? (
           cards.map((card) => (
-            <FoxCard card={card} liked={liked} key={card.id} />
+            <FoxCard
+              imageUrl={card.image}
+              isLiked={card.isLiked}
+              showOnlyLiked={showOnlyLiked}
+              id={card.id}
+              key={card.id}
+            />
           ))
         ) : (
           <div>IseeWinner</div>

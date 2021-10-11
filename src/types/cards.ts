@@ -38,19 +38,22 @@ interface ShowLikedCards {
 
 export interface CardType {
   image: string;
-  liked: boolean;
+  isLiked: boolean;
   link: string;
   id: number;
 }
 
 export interface FoxCardType {
-  card: CardType;
-  liked: boolean;
+  // card: CardType;
+  id: number;
+  imageUrl: string;
+  isLiked: boolean;
+  showOnlyLiked: boolean;
 }
 
 export interface CardState {
   cards: Array<CardType>;
-  liked: boolean;
+  showOnlyLiked: boolean;
   loading: boolean;
   error: null | string;
 }

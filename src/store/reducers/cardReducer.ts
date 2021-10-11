@@ -2,7 +2,7 @@ import { CardState, CardAction, CardActionTypes } from "../../types/cards";
 
 const initialState = {
   cards: [],
-  liked: false,
+  showOnlyLiked: false,
   loading: false,
   error: null,
 };
@@ -21,6 +21,7 @@ export const cardReducer = (
     case CardActionTypes.FETCH_CARD_ERROR:
       return {
         ...state,
+        loading: false,
         error: action.payload,
       };
 
@@ -28,7 +29,7 @@ export const cardReducer = (
       return {
         ...state,
         cards: state.cards.map((el) => {
-          el.id === action.payload && (el.liked = !el.liked);
+          el.id === action.payload && (el.isLiked = !el.isLiked);
           return el;
         }),
       };
@@ -42,7 +43,7 @@ export const cardReducer = (
     case CardActionTypes.SHOW_LIKED_CARDS:
       return {
         ...state,
-        liked: action.payload,
+        showOnlyLiked: action.payload,
       };
 
     default:
