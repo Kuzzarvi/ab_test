@@ -44,7 +44,6 @@ export interface CardType {
 }
 
 export interface FoxCardType {
-  // card: CardType;
   id: number;
   imageUrl: string;
   isLiked: boolean;
