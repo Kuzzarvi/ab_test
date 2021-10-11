@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from "react";
+import React, { FC, useEffect } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
 
@@ -15,13 +15,6 @@ const CardList: FC = () => {
   useEffect(() => {
     fetchCards();
   }, []);
-
-  // const noneCardsToDisplay: boolean = useMemo(() => {
-  //   return (
-  //     !!cards.length &&
-  //     (showOnlyLiked ? !!cards.filter((el) => el.isLiked === showOnlyLiked).length : true)
-  //   );
-  // }, [cards, showOnlyLiked]);
 
   if (loading) {
     return <h1>Loading...</h1>;
