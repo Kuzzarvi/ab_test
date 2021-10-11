@@ -1,6 +1,8 @@
 # AB_TEST
 
-For start:
+demo: https://kuzzarvi.github.io/ab_test/
+
+For IDE start:
 1. Clone repo;
 2. npm i / yarn;
 3. npm run start;
